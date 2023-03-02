@@ -1,3 +1,8 @@
+/**
+ Clase principal del programa.
+ Se encarga de gestionar la interacción con el usuario y la manipulación de datos de coches.
+ */
+
 import model.Coche;
 
 import java.io.*;
@@ -6,26 +11,42 @@ import java.util.Scanner;
 
 public class Main {
 
+    // ArrayList para almacenar los coches
     private static ArrayList<Coche> listaCoches= new ArrayList();
 
+    // Scanner para leer entradas de usuario
     private static Scanner scannerInt = new Scanner(System.in);
     private static Scanner scannerStr = new Scanner(System.in);
 
+    // Nombres de archivo y objetos File para almacenar los datos de coches
     private static String nombreArchivoCochesDAT = "src\\main\\resources\\Coches.dat";
     private static String nombreArchivoCochesCSV = "src\\main\\resources\\Coches.csv";
     private static File archivoCochesDAT = new File(nombreArchivoCochesDAT);
     private static File archivoCochesCSV = new File(nombreArchivoCochesCSV);
 
+    // Variable para almacenar el máximo ID de coche
     private static int maxId = 1;
 
+    /**
+     * Comprueba si el archivo de datos de coches DAT existe.
+     * @return verdadero si el archivo existe, falso en caso contrario.
+     */
     private static boolean existeFicheroDAT() {
         return archivoCochesDAT.exists();
     }
 
+    /**
+     * Comprueba si el archivo de datos de coches CSV existe.
+     * @return verdadero si el archivo existe, falso en caso contrario.
+     */
     private static boolean existeFicheroCSV() {
         return archivoCochesCSV.exists();
     }
 
+    /**
+     * Carga los datos de coches desde el archivo DAT en el ArrayList.
+     * @throws IOException si hay un error al leer el archivo.
+     */
     private static void cargarArrayListDAT() throws IOException {
         ObjectInputStream archivoCochesDAT = new ObjectInputStream(new FileInputStream(nombreArchivoCochesDAT));
         try {
@@ -39,6 +60,10 @@ public class Main {
         }
     }
 
+    /**
+     * Carga los datos de coches desde el archivo CSV en el ArrayList.
+     * @throws FileNotFoundException si el archivo no se encuentra.
+     */
     private static void cargarArrayListCSV() throws FileNotFoundException {
         Scanner lector = new Scanner(archivoCochesCSV);
         String linea= null;
@@ -55,10 +80,17 @@ public class Main {
         lector.close();
     }
 
+    /**
+     * Actualiza el valor máximo de ID de coche.
+     * @param newMaxId el nuevo valor máximo de ID de coche.
+     */
     private static void actualizarMaxId(int newMaxId){
         maxId = newMaxId;
     }
 
+    /**
+     * Imprime el menú de opciones para el usuario.
+     */
     private static void pintarMenu(){
         System.out.println("1. Anadir nuevo coche");
         System.out.println("2. Borrar coche por id");
